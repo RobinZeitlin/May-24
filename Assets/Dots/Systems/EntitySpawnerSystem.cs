@@ -40,6 +40,7 @@ namespace ECS
                 ecb.SetComponent(newEntity, new LocalTransform 
                 { 
                     Position = new float3(randomPosition.x, randomPosition.y, randomPosition.z),
+                    Rotation = quaternion.Euler(0, random.NextFloat(0, 360), 0),
                 });
 
                 //ScaleEffect Initializer

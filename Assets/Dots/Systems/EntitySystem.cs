@@ -29,7 +29,7 @@ public partial struct EntitySystem : ISystem
 
                 float3 moveDirection = entityRef.moveDirection * SystemAPI.Time.DeltaTime * entityRef.moveSpeed;
 
-                localTransform.Position = localTransform.Position + moveDirection * 0.6f;
+                //localTransform.Position = localTransform.Position + moveDirection * 0.6f;
 
                 entityManager.SetComponentData<LocalTransform>(entity, localTransform);
 
