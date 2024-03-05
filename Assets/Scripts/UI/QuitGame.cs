@@ -1,16 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuitGame : MonoBehaviour
 {
+    public UnityEvent quitEvent;
+    public int duration;
+
     public void Quit()
     {
-        if(Application.isEditor)
+        QuitFunction();
+    }
+
+    async void QuitFunction()
+    {
+        quitEvent?.Invoke();
+
+        await Task.Delay(duration * 1000);
+
+        if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
         }
         else
-        Application.Quit();
+            Application.Quit();
     }
 }

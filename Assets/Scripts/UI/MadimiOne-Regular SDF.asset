@@ -5410,7 +5410,7 @@ MonoBehaviour:
   normalStyle: 0
   normalSpacingOffset: 0
   boldStyle: 0.75
-  boldSpacing: 7
+  boldSpacing: 13.9
   italicStyle: 35
   tabSize: 10
 --- !u!28 &5966036064050695326
