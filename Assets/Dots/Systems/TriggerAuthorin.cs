@@ -14,7 +14,6 @@ public class TriggerAuthorin : MonoBehaviour
         {
             Entity triggerAuthoring = GetEntity(TransformUsageFlags.None);
 
- 
             AddComponent(triggerAuthoring, new TriggerComponent 
             { 
                 size = authoring.size 

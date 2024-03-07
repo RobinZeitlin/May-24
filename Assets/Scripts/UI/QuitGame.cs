@@ -20,11 +20,12 @@ public class QuitGame : MonoBehaviour
 
         await Task.Delay(duration * 1000);
 
+#if UNITY_EDITOR
         if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
         }
-        else
-            Application.Quit();
+#endif
+        Application.Quit();
     }
 }

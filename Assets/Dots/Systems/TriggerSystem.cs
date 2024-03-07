@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public partial struct TriggerSystem : ISystem
 {
@@ -14,6 +17,31 @@ public partial struct TriggerSystem : ISystem
         EntityManager entityManager = state.EntityManager;
 
         NativeArray<Entity> entities = entityManager.GetAllEntities(Allocator.Temp);
+
+        var deltaTime = SystemAPI.Time.DeltaTime;
+        var entitiesWithGoouseTouched = entityManager.GetAllEntities(Allocator.Temp);
+
+        foreach (var e in entitiesWithGoouseTouched)
+        {
+            if (entityManager.HasComponent<GoouseTouched>(e))
+            {
+                var component = entityManager.GetComponentData<GoouseTouched>(e);
+                component.removeTimer -= deltaTime; // Decrement the timer by deltaTime
+
+                if (component.removeTimer <= 0)
+                {
+                    // Time to remove the component
+                    entityManager.RemoveComponent<GoouseTouched>(e);
+                }
+                else
+                {
+                    // Update the component data if it's not time to remove
+                    entityManager.SetComponentData(e, component);
+                }
+            }
+        }
+
+       // entitiesWithGoouseTouched.Dispose();
 
         foreach (Entity entity in entities)
         {
@@ -39,25 +67,27 @@ public partial struct TriggerSystem : ISystem
                 {
                     Debug.Log(hits.Length);
 
-                    if (entityManager.HasComponent<CollisionBlock>(hit.Entity))
+                    if (!entityManager.HasComponent<CollisionBlock>(hit.Entity))
                     {
-                        if (!entityManager.HasComponent<GoouseTouched>(entity))
+                        if (!entityManager.HasComponent<GoouseTouched>(hit.Entity))
                         {
-                            entityManager.AddComponent<GoouseTouched>(entity);
+                            entityManager.AddComponent<GoouseTouched>(hit.Entity);
+                            Debug.Log("Added GoouseTouched component");
                         }
 
                         var gouseTouched = new GoouseTouched
                         {
-                            endScale = 1.5f,
                             originalScale = 1f,
-                            duration = 1f,
+                            endScale = 1.1f,
+                            duration = 0.1f,
                             time = 0f,
+                            removeTimer = 0.38f,
                             scalingUp = false,
                         };
 
-                        entityManager.SetComponentData(entity, gouseTouched);
+                        entityManager.SetComponentData(hit.Entity, gouseTouched);
 
-                        GoouseTouched componentAfterSet = entityManager.GetComponentData<GoouseTouched>(entity);
+                        GoouseTouched componentAfterSet = entityManager.GetComponentData<GoouseTouched>(hit.Entity);
 
                         if (!Equals(hit.Entity, entity))
                         {
@@ -71,6 +101,8 @@ public partial struct TriggerSystem : ISystem
 
                     Debug.Log("Im not a goose!");
                 }
+
+                hits.Dispose();
             }
         }
 

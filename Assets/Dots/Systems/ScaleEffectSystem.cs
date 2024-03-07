@@ -34,7 +34,7 @@ public partial class ScaleEffectSystem : SystemBase
                     effect.time = 0f;
                     effect.scalingUp = true;
                     effect.originalScale = effect.endScale;
-                    effect.endScale = 2f * effect.originalScale; // Example scaling factor
+                    effect.endScale = 1.2f * effect.originalScale; // Example scaling factor
                 }
             }
 

@@ -12,6 +12,7 @@ public class CollisionBlockAuthenticator : MonoBehaviour
             Entity triggerAuthoring = GetEntity(TransformUsageFlags.None);
 
             AddComponent(triggerAuthoring, new CollisionBlock{});
+
             /*AddComponent(triggerAuthoring, new GoouseTouched
             {
                 endScale = 1.5f,
