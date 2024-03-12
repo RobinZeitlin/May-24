@@ -31,6 +31,7 @@ public class PrefabPreviewer : EditorWindow
         GUILayout.Label("Prefab Previewer", EditorStyles.boldLabel);
 
         EditorGUI.BeginChangeCheck();
+
         prefabToPreview = (GameObject)EditorGUILayout.ObjectField("Prefab", prefabToPreview, typeof(GameObject), false);
         duckInfo = (DuckInfoSO)EditorGUILayout.ObjectField("Duck Info", duckInfo, typeof(DuckInfoSO), false);
 
@@ -98,7 +99,7 @@ public class PrefabPreviewer : EditorWindow
         if (duckInfo != null && duckInfo.hats.Count > 0)
         {
             int randomIndex = Random.Range(0, duckInfo.hats.Count);
-            hatToPreview = duckInfo.hats[randomIndex];
+            hatToPreview = duckInfo.hats[randomIndex].hatPrefab;
             UpdatePreview();
         }
     }

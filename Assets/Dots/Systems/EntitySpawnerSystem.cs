@@ -11,10 +11,18 @@ namespace ECS
     [BurstCompile]
     public partial struct EntitySpawnerSystem : ISystem
     {
+        public int EntityCount { get; set; }
+
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            SpawnEntity(ref state);
+            if (EntityCount < 100)
+            {
+                SpawnEntity(ref state);
+                EntityCount++;
+            }
+            else
+                Debug.Log("Entity Count Reached 10");
         }
 
         [BurstCompile]
@@ -66,7 +74,7 @@ namespace ECS
         }
         public Vector3 GetRandomPosition(Random random)
         {
-            return new Vector3(random.NextFloat(-30, 30), 0, random.NextFloat(-30, 30));
+            return new Vector3(random.NextFloat(-15, 15), 0, random.NextFloat(-15, 15));
         }
     }
 }

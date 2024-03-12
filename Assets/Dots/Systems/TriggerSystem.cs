@@ -65,14 +65,14 @@ public partial struct TriggerSystem : ISystem
 
                 foreach(ColliderCastHit hit in hits)
                 {
-                    Debug.Log(hits.Length);
+                    //Debug.Log(hits.Length);
 
                     if (!entityManager.HasComponent<CollisionBlock>(hit.Entity))
                     {
                         if (!entityManager.HasComponent<GoouseTouched>(hit.Entity))
                         {
                             entityManager.AddComponent<GoouseTouched>(hit.Entity);
-                            Debug.Log("Added GoouseTouched component");
+                            //Debug.Log("Added GoouseTouched component");
                         }
 
                         var gouseTouched = new GoouseTouched
@@ -91,15 +91,15 @@ public partial struct TriggerSystem : ISystem
 
                         if (!Equals(hit.Entity, entity))
                         {
-                            Debug.Log($"After setting: EndScale={componentAfterSet.endScale}, OriginalScale={componentAfterSet.originalScale}, Duration={componentAfterSet.duration}, Time={componentAfterSet.time}, ScalingUp={componentAfterSet.scalingUp}");
+                            //Debug.Log($"After setting: EndScale={componentAfterSet.endScale}, OriginalScale={componentAfterSet.originalScale}, Duration={componentAfterSet.duration}, Time={componentAfterSet.time}, ScalingUp={componentAfterSet.scalingUp}");
                         }
 
-                        Debug.Log(Equals(hit.Entity, entity) ? hit.Entity : "Trigger");
+                        //Debug.Log(Equals(hit.Entity, entity) ? hit.Entity : "Trigger");
 
                         continue;
                     }
 
-                    Debug.Log("Im not a goose!");
+                    //Debug.Log("Im not a goose!");
                 }
 
                 hits.Dispose();

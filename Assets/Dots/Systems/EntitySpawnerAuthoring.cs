@@ -11,6 +11,7 @@ namespace ECS
     {
         public GameObject prefab;
         public float spawnRate;
+        public float spawnCount;
     }
 
     class EntitySpawnerBaker : Baker<EntitySpawnerAuthoring>
@@ -28,7 +29,8 @@ namespace ECS
                 prefab = GetEntity(authoring.prefab, TransformUsageFlags.Dynamic),
                 spawnPos = authoring.transform.position,
                 nextSpawnTime = 0,
-                spawnInterval = authoring.spawnRate
+                spawnInterval = authoring.spawnRate,
+                spawnCount = authoring.spawnCount,
             });
         }
     }

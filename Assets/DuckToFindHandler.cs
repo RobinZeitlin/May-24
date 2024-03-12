@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Random = UnityEngine.Random;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DuckToFindHandler : MonoBehaviour
 {
+    [Header("Duck References")]
     public GameObject duckPrefab;
 
     public DuckInfoSO duckInfo;
 
-    public float2 duckPos;
+    [Space(15)]
+
+    [Header("Duck To Find")]
+    public DuckToFind duckToFind;
+    [Header("Ui References")]
+    public Image hatShowCase;
+
+    [HideInInspector] public float2 duckPos = new float2(30,30);
 
     public void Start()
     {
+        if(duckToFind == DuckToFind.None)
+        {
+            duckToFind = (DuckToFind)Random.Range(1, 7);
+        }
+
+        hatShowCase.sprite = duckInfo.hats[(int)duckToFind - 1].hatSprite;
+
         SpawnDuck();
     }
 
@@ -30,8 +46,7 @@ public class DuckToFindHandler : MonoBehaviour
     {
         if (duckInfo.hats.Count > 0)
         {
-            int randomHatIndex = Random.Range(0, duckInfo.hats.Count);
-            GameObject hat = duckInfo.hats[randomHatIndex];
+            GameObject hat = duckInfo.hats[(int)duckToFind - 1].hatPrefab;
 
             GameObject hatEntity = Instantiate(hat, Vector3.zero, Quaternion.identity, _duck.transform);
 

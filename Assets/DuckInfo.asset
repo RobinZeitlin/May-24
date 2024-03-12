@@ -13,10 +13,21 @@ MonoBehaviour:
   m_Name: DuckInfo
   m_EditorClassIdentifier: 
   hats:
-  - {fileID: 100000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
-  - {fileID: 100000, guid: 598a1f45fefa08846b93be35e98f166e, type: 3}
-  - {fileID: 100000, guid: 06c4131835f65024586454416f6b1f66, type: 3}
-  - {fileID: 100000, guid: a9853556c4fc4d44087cd153918f7305, type: 3}
-  - {fileID: 100000, guid: cf015317a103ab34483db3f2dc6f0f59, type: 3}
-  - {fileID: 100000, guid: 290f57b34312fbf448d3b8ca6b6bd41d, type: 3}
-  - {fileID: 100000, guid: a20ea7771cebbda4696ef82ef45481a0, type: 3}
+  - hatPrefab: {fileID: 100000, guid: a20ea7771cebbda4696ef82ef45481a0, type: 3}
+    duckToFind: 1
+    hatSprite: {fileID: 21300000, guid: 8c8facb67153dd046b0b7aa70741ce1c, type: 3}
+  - hatPrefab: {fileID: 100000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
+    duckToFind: 2
+    hatSprite: {fileID: 21300000, guid: 8e40d2ff273a377489b2881479454574, type: 3}
+  - hatPrefab: {fileID: 100000, guid: 06c4131835f65024586454416f6b1f66, type: 3}
+    duckToFind: 3
+    hatSprite: {fileID: 21300000, guid: 3ce2f02a261a3df41ac152dd269a01b0, type: 3}
+  - hatPrefab: {fileID: 100000, guid: 598a1f45fefa08846b93be35e98f166e, type: 3}
+    duckToFind: 4
+    hatSprite: {fileID: 21300000, guid: 1b7cb63c98d55164e830c7de30bcf77b, type: 3}
+  - hatPrefab: {fileID: 100000, guid: 290f57b34312fbf448d3b8ca6b6bd41d, type: 3}
+    duckToFind: 5
+    hatSprite: {fileID: 21300000, guid: 7c238bc67bf70fa40a9e69e41e95c761, type: 3}
+  - hatPrefab: {fileID: 100000, guid: a9853556c4fc4d44087cd153918f7305, type: 3}
+    duckToFind: 6
+    hatSprite: {fileID: 21300000, guid: 8ae40ffdb4deed640ae95fb755ab1af4, type: 3}

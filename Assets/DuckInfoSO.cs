@@ -6,5 +6,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DuckInfo", menuName = "DuckInfo")]
 public class DuckInfoSO : ScriptableObject
 {
-    public List<GameObject> hats = new List<GameObject>();
+    public List<duckInfo> hats = new List<duckInfo>();
 }
+
+[System.Serializable]
+public class duckInfo
+{
+    public GameObject hatPrefab;
+    public DuckToFind duckToFind;
+    public Sprite hatSprite;
+}
+public enum DuckToFind
+{
+    None,
+    VikingHelmet,
+    CownoyHat,
+    TopHat,
+    Crown,
+    Sombrero,
+    MinerHat,
+}
+
