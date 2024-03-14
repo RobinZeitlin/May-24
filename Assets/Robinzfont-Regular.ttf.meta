@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4a97a810711e733469b04b5746d958c3
+guid: 9c1fb2fbc2592de419f0f3b674a4c114
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -12,7 +12,7 @@ TrueTypeFontImporter:
   - Robinzfont
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 1
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1

@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        levelTextDisplay.text = "Level: " + Level;
+        
         DontDestroyOnLoad(this);
     }
 
-    private void Update()
+    public void Update()
     {
-        Debug.Log("Level: " + Level);
+        levelTextDisplay.text = "Level " + Level;
     }
+
 }

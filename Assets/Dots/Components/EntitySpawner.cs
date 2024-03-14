@@ -10,4 +10,5 @@ public struct EntitySpawner : IComponentData
     public float nextSpawnTime;
     public float spawnInterval;
     public float spawnCount;
+    public float direction;
 }
