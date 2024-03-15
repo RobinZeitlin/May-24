@@ -14,9 +14,11 @@ namespace ECS
     public partial struct EntitySpawnerSystem : ISystem
     {
         public static EntitySpawnerSystem instance;
+        public static int Level;
         public void Initialize(ref SystemState state)
         {
             instance = this;
+            Level = 1;
         }
 
         public static int EntityCount;
@@ -24,7 +26,7 @@ namespace ECS
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (EntityCount < 10 + (25 * GameManager.instance.Level))
+            if (EntityCount < 5 + (25 * Level))
             {
                 SpawnEntity(ref state);
                 EntityCount++;
@@ -44,6 +46,8 @@ namespace ECS
             {
                 entityManager.DestroyEntity(entities);
             }
+
+            Level++;
         }
 
         [BurstCompile]
@@ -99,7 +103,10 @@ namespace ECS
         }
         public Vector3 GetRandomPosition(Random _random)
         {
-            return new Vector3(_random.NextFloat(-15, 15), 0, _random.NextFloat(-15, 15));
+            float positionX = _random.NextFloat(-15, 15);
+            float positionZ = _random.NextFloat(-15, 15);
+
+            return new Vector3(positionX * (GameManager.instance.Level * 0.12f), 0, positionZ * (GameManager.instance.Level * 0.12f));
         }
 
         static int RandomSign(Random _random)

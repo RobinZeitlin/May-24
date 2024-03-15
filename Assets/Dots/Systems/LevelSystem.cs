@@ -39,12 +39,15 @@ namespace ECS
 
         public void ClearEntitys()
         {
+            PlaceFences.instance.ResetFences();
+
             EntitySpawnerSystem.instance.ClearAllEntitys(this.EntityManager);
             EntitySpawnerSystem.EntityCount = 0;
         }
+
         protected override void OnUpdate()
         {
-
+            Debug.Log("");
         }
     }
 }

@@ -21,7 +21,7 @@ public class DuckToFindHandler : MonoBehaviour
     [Header("Ui References")]
     public Image hatShowCase;
 
-    [HideInInspector] public float SpawnRange = 12;
+    [HideInInspector] public float SpawnRange = 15;
 
     public void Start()
     {
@@ -35,8 +35,8 @@ public class DuckToFindHandler : MonoBehaviour
             Destroy(currentDuck);
         }
 
-        float randX = Random.Range(-SpawnRange, SpawnRange);
-        float randY = Random.Range(-SpawnRange, SpawnRange);
+        float randX = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
+        float randY = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
 
         GameObject duck = Instantiate(duckPrefab, new Vector3(0 + randX, 0, 0 + randY), Quaternion.identity);
         currentDuck = duck;
