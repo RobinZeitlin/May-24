@@ -14,7 +14,7 @@ namespace ECS
     public partial struct EntitySpawnerSystem : ISystem
     {
         public static EntitySpawnerSystem instance;
-        public static int Level;
+        public int Level;
         public void Initialize(ref SystemState state)
         {
             instance = this;
@@ -40,7 +40,7 @@ namespace ECS
             {
                 return;
             }
-            EntityQuery query = entityManager.CreateEntityQuery(typeof(LocalTransform));
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(ScaleEffect));
 
             using (NativeArray<Entity> entities = query.ToEntityArray(Allocator.Temp))
             {

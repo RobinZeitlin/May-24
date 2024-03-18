@@ -10,6 +10,14 @@ public class CustomCursor : MonoBehaviour
 
     private void Start()
     {
+        if(cursorTexture == null)
+        {
+            Cursor.visible = false;
+            return;
+        }
+
+        Debug.Log("Setting custom cursor");
+
         cursorHotspot = new Vector2(cursorTexture.width / 2, cursorTexture.height / 2);
         Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
     }
