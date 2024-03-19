@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementSystem : MonoBehaviour
 {
-    public float dragSpeed = 2;
+    public float dragSpeed = 22;
     private Vector3 dragOrigin;
 
     void Update()
@@ -22,5 +22,7 @@ public class MovementSystem : MonoBehaviour
 
         transform.Translate(move, Space.World);
         dragOrigin = Input.mousePosition;
+
+        dragSpeed = 22 * (Camera.main.fieldOfView / 60);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class InWorldCursor : MonoBehaviour
 {
     [SerializeField] private LayerMask layer;
+
+    [SerializeField] private float speed;
     public void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -15,7 +17,7 @@ public class InWorldCursor : MonoBehaviour
 
             Vector3 directionToCamera = (Camera.main.transform.position - hitPoint).normalized;
 
-            transform.position = Vector3.Slerp(transform.position, hitPoint + directionToCamera * 5, 5f * Time.deltaTime);
+            transform.position = Vector3.Slerp(transform.position, hitPoint + directionToCamera * 5, speed * Time.deltaTime);
         }
     }
 }
