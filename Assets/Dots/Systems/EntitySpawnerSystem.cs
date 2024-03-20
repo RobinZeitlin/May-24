@@ -23,10 +23,9 @@ namespace ECS
 
         public static int EntityCount;
 
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (EntityCount < 5 + (25 * Level))
+            if (EntityCount < 5 + (25 * GameManager.instance.Level))
             {
                 SpawnEntity(ref state);
                 EntityCount++;
@@ -40,6 +39,7 @@ namespace ECS
             {
                 return;
             }
+
             EntityQuery query = entityManager.CreateEntityQuery(typeof(ScaleEffect));
 
             using (NativeArray<Entity> entities = query.ToEntityArray(Allocator.Temp))
@@ -48,6 +48,10 @@ namespace ECS
             }
 
             Level++;
+            GameManager.instance.Level = Level;
+            EntityCount = 0;
+
+            Debug.Log("Level Changed");
         }
 
         [BurstCompile]

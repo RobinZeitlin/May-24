@@ -42,7 +42,6 @@ namespace ECS
             PlaceFences.instance.ResetFences();
 
             EntitySpawnerSystem.instance.ClearAllEntitys(this.EntityManager);
-            EntitySpawnerSystem.EntityCount = 0;
         }
 
         protected override void OnUpdate()

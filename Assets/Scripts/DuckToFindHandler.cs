@@ -10,6 +10,9 @@ public class DuckToFindHandler : MonoBehaviour
     [Header("Duck References")]
     public GameObject duckPrefab;
 
+    public GameObject duckOnScooter;
+    public List<GameObject> ducks;
+
     public DuckInfoSO duckInfo;
 
     private GameObject currentDuck;
@@ -30,7 +33,9 @@ public class DuckToFindHandler : MonoBehaviour
 
     public void SpawnDuck()
     {
-        if(currentDuck != null)
+        SpawnSpecialDucks();
+
+        if (currentDuck != null)
         {
             Destroy(currentDuck);
         }
@@ -43,6 +48,35 @@ public class DuckToFindHandler : MonoBehaviour
 
         SetHatSprite();
         AssignHat(duck);
+    }
+
+    void SpawnSpecialDucks()
+    {
+        ClearSpecialDucks();
+
+        for(int i = 0; i < (int)(GameManager.instance.Level / 5); i++)
+        {
+            float randX = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
+            float randY = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
+
+            GameObject thisDuck = Instantiate(duckOnScooter, new Vector3(0 + randX, 0, 0 + randY), Quaternion.identity);
+
+            ducks.Add(thisDuck);
+
+        }
+    }
+
+    void ClearSpecialDucks()
+    {
+        if (ducks.Count > 0)
+        {
+            foreach (var duck in ducks)
+            {
+                Destroy(duck);
+            }
+
+            ducks.Clear();
+        }
     }
 
     void SetHatSprite()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2423356115700146861}
   - component: {fileID: 6101119241590407832}
   - component: {fileID: 3614625495161897750}
+  - component: {fileID: 6638221235043897205}
   m_Layer: 0
   m_Name: Entity
   m_TagString: Duck
@@ -127,6 +128,20 @@ MonoBehaviour:
   moveSpeed: 0
   directionValue: 0
   rotationAngle: 0
+--- !u!114 &6638221235043897205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005771353455890130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb46be273755dbf41b9de964c056735d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Intensity: 0.15
+  Speed: 16
 --- !u!1001 &2909907486510846196
 PrefabInstance:
   m_ObjectHideFlags: 0

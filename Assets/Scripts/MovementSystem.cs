@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovementSystem : MonoBehaviour
 {
     public float dragSpeed = 22;
+
+    private float currentDragSpeed = 22;
     private Vector3 dragOrigin;
 
     void Update()
@@ -18,11 +20,11 @@ public class MovementSystem : MonoBehaviour
         if (!Input.GetMouseButton(0)) return;
 
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(pos.y * dragSpeed, 0, -pos.x * dragSpeed);
+        Vector3 move = new Vector3(pos.y * currentDragSpeed, 0, -pos.x * currentDragSpeed);
 
         transform.Translate(move, Space.World);
         dragOrigin = Input.mousePosition;
 
-        dragSpeed = 22 * (Camera.main.fieldOfView / 60);
+        currentDragSpeed = dragSpeed * (Camera.main.fieldOfView / 60);
     }
 }
