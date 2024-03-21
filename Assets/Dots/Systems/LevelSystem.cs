@@ -27,7 +27,6 @@ namespace ECS
                 if(_currentLevel != value)
                 {
                     _currentLevel = value;
-                    ClearEntitys();
                 }
             }
         }
@@ -35,6 +34,7 @@ namespace ECS
         public void ChangeLevel(int level)
         {
             currentLevel = level;
+            ClearEntitys();
         }
 
         public void ClearEntitys()

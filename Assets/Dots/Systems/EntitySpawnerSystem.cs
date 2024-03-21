@@ -19,16 +19,20 @@ namespace ECS
         {
             instance = this;
             Level = 1;
+            GameManager.instance.Level = Level;
         }
 
         public static int EntityCount;
 
         public void OnUpdate(ref SystemState state)
         {
-            if (EntityCount < 5 + (25 * GameManager.instance.Level))
+            if (EntityCount < 5 + (40 * GameManager.instance.Level))
             {
-                SpawnEntity(ref state);
-                EntityCount++;
+                for (int i = 0; i < 20; i++)
+                {
+                    SpawnEntity(ref state);
+                    EntityCount++;
+                }
             }
         }
 
@@ -110,7 +114,7 @@ namespace ECS
             float positionX = _random.NextFloat(-15, 15);
             float positionZ = _random.NextFloat(-15, 15);
 
-            return new Vector3(positionX * (GameManager.instance.Level * 0.12f), 0, positionZ * (GameManager.instance.Level * 0.12f));
+            return new Vector3(positionX * (GameManager.instance.Level * 0.08f), 0, positionZ * (GameManager.instance.Level * 0.08f));
         }
 
         static int RandomSign(Random _random)
