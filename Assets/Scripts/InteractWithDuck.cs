@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class InteractWithDuck : MonoBehaviour
 {
     public DuckToFindHandler DuckToFindHandler;
+
+    public UnityEvent OnDuckFound;
     public void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -23,7 +26,8 @@ public class InteractWithDuck : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Duck"))
             {
                 GameManager.instance.Level++;
-                //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+
+                OnDuckFound?.Invoke();
 
                 LevelSystem levelSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<LevelSystem>();
                 levelSystem.ChangeLevel(GameManager.instance.Level);

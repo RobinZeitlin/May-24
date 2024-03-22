@@ -20,7 +20,7 @@ public enum DuckToFind
 {
     None,
     VikingHelmet,
-    CownoyHat,
+    CowboyHat,
     TopHat,
     Crown,
     Sombrero,

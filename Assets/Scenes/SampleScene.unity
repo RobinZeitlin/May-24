@@ -123,6 +123,66 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &7648173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7648174}
+  - component: {fileID: 7648175}
+  m_Layer: 0
+  m_Name: SteamManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7648174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7648173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.90178, y: 10.159691, z: -7.620731}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7648175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7648173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6747d4c34477b6846831e10d33e66978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appId: 2875910
+  SteamConnected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: aa696d2afbb422942a65d34f0b06f605, type: 2}
+        m_TargetAssemblyTypeName: SteamAchievement, Assembly-CSharp
+        m_MethodName: UnlockAchievement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &28136857
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -34.799988}
+  m_AnchoredPosition: {x: 0, y: -34.80005}
   m_SizeDelta: {x: 469.093, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &103035632
@@ -505,7 +565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.3972877}
   m_AnchorMax: {x: 0.048, y: 0.9167781}
-  m_AnchoredPosition: {x: 0, y: -0.38311768}
+  m_AnchoredPosition: {x: 0, y: -0.38305664}
   m_SizeDelta: {x: -2.3946, y: 1.2185}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &169837210
@@ -842,6 +902,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DuckToFindHandler: {fileID: 448688299}
+  OnDuckFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a59477ef1f842ab4d9e9fdec528cf47b, type: 2}
+        m_TargetAssemblyTypeName: SteamAchievementCounter, Assembly-CSharp
+        m_MethodName: IncreaseStat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &345026658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,9 +1158,12 @@ MonoBehaviour:
   - {fileID: 2466957273300600966, guid: 7781dd17fa7e2a947a198693e0d60d09, type: 3}
   ducks: []
   duckInfo: {fileID: 11400000, guid: 1a20dd5ccad454b4f8d104d80b296ce4, type: 2}
-  duckToFind: 0
+  duckToFind: 2
   hatShowCase: {fileID: 1002502511}
   SpawnRange: 5
+  Crown: {fileID: 11400000, guid: 26df0d35fa268254c8beb20c0bbda775, type: 2}
+  CowboyHat: {fileID: 11400000, guid: 57bbcb2a3f509044692dfc81e5886e34, type: 2}
+  MinerHat: {fileID: 11400000, guid: d4a78b5f07f304444b0f7e364603696b, type: 2}
 --- !u!114 &448688301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b9d49ddbbd5c049abb37374ca33953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level: 20
+  Level: 1
   levelTextDisplay: {fileID: 103035632}
 --- !u!1 &501885591
 GameObject:
@@ -2750,3 +2828,4 @@ SceneRoots:
   - {fileID: 501885594}
   - {fileID: 2035444682}
   - {fileID: 1508760900}
+  - {fileID: 7648174}

@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Random = UnityEngine.Random;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DuckToFindHandler : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class DuckToFindHandler : MonoBehaviour
 
     [HideInInspector] public float SpawnRange = 15;
 
+    public SteamAchievement Crown;
+    public SteamAchievement CowboyHat;
+    public SteamAchievement MinerHat;
+
     public void Start()
     {
         SpawnDuck();
@@ -33,6 +38,9 @@ public class DuckToFindHandler : MonoBehaviour
 
     public void SpawnDuck()
     {
+        if(duckToFind != DuckToFind.None)
+            UnlockAchievement();
+
         SpawnSpecialDucks();
 
         if (currentDuck != null)
@@ -50,6 +58,23 @@ public class DuckToFindHandler : MonoBehaviour
         AssignHat(duck);
     }
 
+    void UnlockAchievement()
+    {
+        switch (duckToFind)
+        {
+            case DuckToFind.CowboyHat:
+                    CowboyHat.UnlockAchievement();
+                break;
+
+            case DuckToFind.Crown:
+                    Crown.UnlockAchievement();
+                break;
+
+            case DuckToFind.MinerHat:
+                    MinerHat.UnlockAchievement();
+                break;
+        }
+    }
     void SpawnSpecialDucks()
     {
         ClearSpecialDucks();
@@ -81,7 +106,7 @@ public class DuckToFindHandler : MonoBehaviour
 
     void SetHatSprite()
     {
-        duckToFind = (DuckToFind)Random.Range(1, 7);
+        duckToFind = (DuckToFind)Random.Range(1, 4);
         hatShowCase.sprite = duckInfo.hats[(int)duckToFind - 1].hatSprite;
     }
     public void AssignHat(GameObject _duck)
@@ -92,9 +117,9 @@ public class DuckToFindHandler : MonoBehaviour
 
             GameObject hatEntity = Instantiate(hat, Vector3.zero, Quaternion.identity, _duck.transform);
 
-            hatEntity.transform.localPosition = new Vector3(0, 1.11f, 0.15f);
-            hatEntity.transform.localRotation = Quaternion.Euler(-35, 0, 0);
-            hatEntity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            hatEntity.transform.localPosition = new Vector3(0, 1.165f, 0.15f);
+            hatEntity.transform.localRotation = Quaternion.Euler(-105, 0, 0);
+            hatEntity.transform.localScale = new Vector3(10f, 10f, 10f);
         }
     }
 }
