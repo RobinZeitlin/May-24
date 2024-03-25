@@ -43,6 +43,7 @@ public class AudioManager : MonoBehaviour
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
         audioSource.Play();
+        audioSource.volume = 0.2f;
         Destroy(audioSource, clip.length);
     }
 }
