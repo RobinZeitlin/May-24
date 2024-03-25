@@ -1017,8 +1017,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.8832317, b: 0.75, a: 0.38431373}
-  m_Intensity: 2
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1.76
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1061,8 +1061,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 4178
-  m_UseColorTemperature: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -1157,6 +1157,8 @@ MonoBehaviour:
   specialDucks:
   - {fileID: 7045406280307657920, guid: 5338b425f538fb04a85c054fc20fdcf5, type: 3}
   - {fileID: 2466957273300600966, guid: 7781dd17fa7e2a947a198693e0d60d09, type: 3}
+  - {fileID: 514149223046438307, guid: bf454c7e5878c3a40a30505957bd80f4, type: 3}
+  - {fileID: 586862099530016314, guid: f598a41fc1d385d4aa7302ac865251b7, type: 3}
   ducks: []
   duckInfo: {fileID: 11400000, guid: 1a20dd5ccad454b4f8d104d80b296ce4, type: 2}
   duckToFind: 2
