@@ -1,0 +1,24 @@
+name: Deploy Change Log
+
+on: push
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Send commit details to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          COMMIT_TITLE=$(git log -1 --pretty=format:'%s')
+          COMMIT_DESCRIPTION=$(git log -1 --pretty=format:'%b')
+          COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          IMAGE_URL="https://robinz.dev/images/repo-deployed-image.png" # Ensure this URL is correct and the image is publicly accessible
+          COMMIT_WITH_URL="[**New Commit:** $COMMIT_TITLE]($COMMIT_URL)"
+          
+          curl -H "Content-Type: application/json" \
+               -d "{\"content\": \"$COMMIT_WITH_URL\n**Description:** $COMMIT_DESCRIPTION\", \"embeds\": [{\"image\": {\"url\": \"$IMAGE_URL\"}}]}" \
+               $DISCORD_WEBHOOK
