@@ -1,0 +1,163 @@
+name: Build and Deploy Project
+
+on: 
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Build Message'
+        required: true
+        default: "Build successfully finished."
+      sendNotification:
+        description: 'Check the box to send notifications to discord channel.'
+        required: true 
+        type: boolean
+        default: false
+      buildForWindows:
+        description: 'Check the box to deploy build for Windows.'
+        required: true
+        type: boolean
+        default: true
+      buildForMac:
+        description: 'Check the box to deploy build for Mac.'
+        required: true
+        type: boolean
+        default: false
+      buildForLinux:
+        description: 'Check the box to deploy build for Linux.'
+        required: true
+        type: boolean
+        default: false
+      deployToSteam:
+        description: 'Check the box to deploy build to steam.'
+        required: true 
+        type: boolean
+        default: false
+      uploadToDrive:
+        description: 'Set it true to upload build to drive default is false.'
+        required: true 
+        type: boolean
+        default: false
+jobs:
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix_json: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set matrix
+        id: set-matrix
+        run: |
+          MATRIX_DATA="$(bash .github/workflows/set-build-matrix.sh ${{ inputs.buildForWindows }} ${{ inputs.buildForWindows }} ${{ inputs.buildForMac }} ${{ inputs.buildForLinux }} ${{ vars.STEAM_APP_ID }} )"
+          echo matrix=$MATRIX_DATA >> $GITHUB_OUTPUT
+
+  buildForSelectedPlatforms:
+    needs: matrix_prep
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
+    outputs:
+      buildVersion: ${{ steps.build.outputs.buildVersion }}
+    steps:
+      # Checkout (without LFS)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # Git LFS
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+      - name: Restore LFS cache
+        uses: actions/cache@v4
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+      # Cache
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        id: build
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          buildName: ${{ secrets.PROJECT_NAME }}
+          versioning: Semantic
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.deployToSteam }} 
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: "build/${{ matrix.targetPlatform }}"
+      - name: Zip Build
+        run: |
+          zip -r "${{ secrets.PROJECT_NAME }}_${{ matrix.targetPlatform }}" "build/${{ matrix.targetPlatform }}/"
+      - if: ${{ inputs.uploadToDrive }}
+        name: upload to drive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
+          filename: "${{ secrets.PROJECT_NAME }}_${{ matrix.targetPlatform }}.zip"
+          folderId: ${{ secrets.DRIVE_FOLDER_ID }}
+          overwrite: true
+  deployToMainDepot:
+    if: ${{ inputs.deployToSteam }} 
+    needs: [matrix_prep, buildForSelectedPlatforms]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download ${{ matrix.targetPlatform }} Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Build-${{ matrix.targetPlatform}}
+          path: build/${{ matrix.targetPlatform }}
+      - uses: game-ci/steam-deploy@v3
+        with:
+          username: ${{ secrets.STEAM_USERNAME }}
+          configVdf: ${{ secrets.STEAM_CONFIG_VDF}}
+          appId: ${{ vars.STEAM_APP_ID }}
+          buildDescription: v${{ needs.buildForAllSupportedPlatforms.outputs.buildVersion }}
+          rootPath: build
+          firstDepotIdOverride: ${{ matrix.depotid }}
+          depot1Path: ${{ matrix.targetPlatform }}
+          releaseBranch : ${{ secrets.STEAM_RELEASE_BRANCH }}
+  sendNotification:
+    if: ${{ always() && inputs.sendNotification }} 
+    name: Send notification
+    needs: [matrix_prep, deployToMainDepot]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: satak/webrequest-action@master
+        name: Send workflow's conclusion to SkyBrave Discord channel
+        with:
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          method: 'POST'
+          payload: '{"embeds": [{"title": "${{ secrets.PROJECT_NAME }} workflow action ${{ github.event.workflow_run.conclusion }}", "description" : "run_id: ${{ github.run_id }} action triggered by ${{ github.actor }}" , "color": 16753920, "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]}'
+  clearArtifacts:
+    if: always()
+    needs: [matrix_prep, deployToMainDepot]
+    runs-on: ubuntu-latest
+    steps:
+      - name : Delete Artifacts 
+        uses : geekyeggo/delete-artifact@v4
+        with:
+            name: |
+              Build-*
