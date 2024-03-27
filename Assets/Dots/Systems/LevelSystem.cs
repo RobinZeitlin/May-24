@@ -34,6 +34,7 @@ namespace ECS
         public void ChangeLevel(int level)
         {
             currentLevel = level;
+            Debug.Log("Its a me");
             ClearEntitys();
         }
 

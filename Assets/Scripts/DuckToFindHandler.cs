@@ -106,7 +106,8 @@ public class DuckToFindHandler : MonoBehaviour
 
     void SetHatSprite()
     {
-        duckToFind = (DuckToFind)Random.Range(1, 4);
+        Debug.Log(duckInfo.hats.Count);
+        duckToFind = (DuckToFind)Random.Range(1, duckInfo.hats.Count + 1);
         hatShowCase.sprite = duckInfo.hats[(int)duckToFind - 1].hatSprite;
     }
     public void AssignHat(GameObject _duck)

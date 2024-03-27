@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        LoadSaveLevel();
+
         if (instance == null)
         {
             instance = this;
@@ -23,6 +25,11 @@ public class GameManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(this);
+    }
+
+    public void LoadSaveLevel()
+    {
+        Level = PlayerPrefs.GetInt("Level", 1);
     }
 
     public void Update()

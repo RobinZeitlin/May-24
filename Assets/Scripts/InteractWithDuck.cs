@@ -44,6 +44,8 @@ public class InteractWithDuck : MonoBehaviour
 
         GameManager.instance.Level++;
 
+        PlayerPrefs.SetInt("Level", GameManager.instance.Level);
+
         OnDuckFound?.Invoke();
 
         LevelSystem levelSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<LevelSystem>();

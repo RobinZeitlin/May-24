@@ -12,7 +12,8 @@ public class PrefabImageTool : EditorWindow
 
     private Editor previewEditor;
 
-    private float hatRotation;
+    private float hatRotationY;
+    private float hatRotationX;
     private float hatScale;
 
     private string savePath = "Assets/HatSprites/";
@@ -51,7 +52,8 @@ public class PrefabImageTool : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        hatRotation = EditorGUILayout.FloatField("Hat Rotation", hatRotation);
+        hatRotationY = EditorGUILayout.FloatField("Hat Rotation Y", hatRotationY);
+        hatRotationX = EditorGUILayout.FloatField("Hat Rotation X", hatRotationX);
         hatScale = EditorGUILayout.FloatField("Hat Scale", hatScale);
 
         GUILayout.EndHorizontal();
@@ -75,7 +77,7 @@ public class PrefabImageTool : EditorWindow
         }
 
         gameObjectToRender.transform.localScale = new Vector3(hatScale, hatScale, hatScale);
-        gameObjectToRender.transform.eulerAngles = new Vector3(0, -hatRotation * 5, 0);
+        gameObjectToRender.transform.eulerAngles = new Vector3(hatRotationX * 5, -hatRotationY * 5, 0);
     }
 
     private void UpdatePreview()

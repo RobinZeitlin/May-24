@@ -25,3 +25,15 @@ MonoBehaviour:
       type: 3}
     duckToFind: 6
     hatSprite: {fileID: 21300000, guid: 5d457762d52450f41bdff70e16b3a41b, type: 3}
+  - hatPrefab: {fileID: 5584763689662566574, guid: 8589eb072a44e6c47a0d6e3403db68de,
+      type: 3}
+    duckToFind: 7
+    hatSprite: {fileID: 21300000, guid: 24eaf98afd1d0b6459528b4e9f68a132, type: 3}
+  - hatPrefab: {fileID: 5584763689662566574, guid: 86f716ec556d5fa4c96ac7e29804fb55,
+      type: 3}
+    duckToFind: 8
+    hatSprite: {fileID: 21300000, guid: da6ea293a524e6e4881de73c77be0ebe, type: 3}
+  - hatPrefab: {fileID: 7176293097452824170, guid: be53bd155f7616040bac1cc3bf9c3060,
+      type: 3}
+    duckToFind: 9
+    hatSprite: {fileID: 21300000, guid: 01c3ed15d951c3248b6ff8238b9866fe, type: 3}

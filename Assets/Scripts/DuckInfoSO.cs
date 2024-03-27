@@ -25,5 +25,8 @@ public enum DuckToFind
     Crown,
     Sombrero,
     MinerHat,
+    CapBlue,
+    CapRed,
+    SunHat,
 }
 

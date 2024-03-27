@@ -18,8 +18,8 @@ namespace ECS
         public void Initialize(ref SystemState state)
         {
             instance = this;
-            Level = 1;
-            GameManager.instance.Level = Level;
+            //Level = 1;
+            //GameManager.instance.Level = Level;
         }
 
         public static int EntityCount;
@@ -51,8 +51,8 @@ namespace ECS
                 entityManager.DestroyEntity(entities);
             }
 
-            Level++;
-            GameManager.instance.Level = Level;
+
+            //GameManager.instance.Level++;
             EntityCount = 0;
 
             Debug.Log("Level Changed");
