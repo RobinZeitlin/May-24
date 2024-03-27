@@ -8,17 +8,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 0
+        
+      - name: Get total commits count
+        run: echo "TOTAL_COMMITS=$(git rev-list --count HEAD)" >> $GITHUB_ENV
+      
       - name: Send commit details to Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          STEAM_APP_ID: ${{ secrets.STEAM_APP_ID }}
         run: |
           COMMIT_TITLE=$(git log -1 --pretty=format:'%s')
           COMMIT_DESCRIPTION=$(git log -1 --pretty=format:'%b')
           COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
-          IMAGE_URL="https://robinz.dev/images/repo-deployed-image.png" # Ensure this URL is correct and the image is publicly accessible
+          TOTAL_COMMITS=${{ env.TOTAL_COMMITS }}
+          IMAGE_URL="https://cdn.cloudflare.steamstatic.com/steam/apps/$STEAM_APP_ID/header.jpg?t=1711477121" # Ensure this URL is correct and the image is publicly accessible
           COMMIT_WITH_URL="[**New Commit:** $COMMIT_TITLE]($COMMIT_URL)"
           
           curl -H "Content-Type: application/json" \
-               -d "{\"content\": \"$COMMIT_WITH_URL\n**Description:** $COMMIT_DESCRIPTION\", \"embeds\": [{\"image\": {\"url\": \"$IMAGE_URL\"}}]}" \
+               -d "{\"content\": \"**Comit count : $TOTAL_COMMITS**\n $COMMIT_WITH_URL\n**Description:** $COMMIT_DESCRIPTION\", \"embeds\": [{\"image\": {\"url\": \"$IMAGE_URL\"}}]}" \
                $DISCORD_WEBHOOK
