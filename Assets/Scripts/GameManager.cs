@@ -35,6 +35,12 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         levelTextDisplay.text = "Level " + Level;
+
+        if(Input.GetKeyDown(KeyCode.F12))
+        {
+            PlayerPrefs.SetInt("Level", 0);
+            Level = 0;
+        }
     }
 
 }
