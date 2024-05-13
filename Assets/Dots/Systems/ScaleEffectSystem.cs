@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
-using UnityEngine;
 
 public partial class ScaleEffectSystem : SystemBase
 {
@@ -34,7 +31,7 @@ public partial class ScaleEffectSystem : SystemBase
                     effect.time = 0f;
                     effect.scalingUp = true;
                     effect.originalScale = effect.endScale;
-                    effect.endScale = 1.2f * effect.originalScale; // Example scaling factor
+                    effect.endScale = 1.2f * effect.originalScale;
                 }
             }
 

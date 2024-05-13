@@ -11,6 +11,7 @@ public class BlackMode : MonoBehaviour
 
     public List<GameObject> colorToChange = new List<GameObject>();
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI tipText;
 
     public void ChangeMode()
     {
@@ -48,6 +49,7 @@ public class BlackMode : MonoBehaviour
         }
 
         levelText.color = _color;
+        tipText.color = _color;
     }
 }
 

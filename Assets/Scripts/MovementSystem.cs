@@ -9,8 +9,30 @@ public class MovementSystem : MonoBehaviour
     private float currentDragSpeed = 22;
     private Vector3 dragOrigin;
 
+    bool moveToOrigin = false;
+    float distanceToOrigin;
+
     void Update()
     {
+        Vector3 offset = new Vector3(8f, transform.position.y, 0);
+        Vector3 origin = Vector3.zero + offset;
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            distanceToOrigin = Vector3.Distance(transform.position, origin);
+            moveToOrigin = !moveToOrigin;
+        }
+
+        if(moveToOrigin)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, origin, distanceToOrigin * Time.deltaTime);
+
+            if(Vector3.Distance(transform.position, origin) < 0.1f)
+                moveToOrigin = false;
+
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             dragOrigin = Input.mousePosition;

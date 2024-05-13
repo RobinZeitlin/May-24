@@ -26,22 +26,21 @@ public partial struct TriggerSystem : ISystem
             if (entityManager.HasComponent<GoouseTouched>(e))
             {
                 var component = entityManager.GetComponentData<GoouseTouched>(e);
-                component.removeTimer -= deltaTime; // Decrement the timer by deltaTime
+                component.removeTimer -= deltaTime;
 
                 if (component.removeTimer <= 0)
                 {
-                    // Time to remove the component
+                    //Time to remove the component
                     entityManager.RemoveComponent<GoouseTouched>(e);
                 }
                 else
                 {
-                    // Update the component data if it's not time to remove
+                    //Update the component data if it's not time to remove
                     entityManager.SetComponentData(e, component);
                 }
             }
         }
 
-       // entitiesWithGoouseTouched.Dispose();
 
         foreach (Entity entity in entities)
         {
@@ -65,14 +64,12 @@ public partial struct TriggerSystem : ISystem
 
                 foreach(ColliderCastHit hit in hits)
                 {
-                    //Debug.Log(hits.Length);
 
                     if (!entityManager.HasComponent<CollisionBlock>(hit.Entity))
                     {
                         if (!entityManager.HasComponent<GoouseTouched>(hit.Entity))
                         {
                             entityManager.AddComponent<GoouseTouched>(hit.Entity);
-                            //Debug.Log("Added GoouseTouched component");
                         }
 
                         var gouseTouched = new GoouseTouched
@@ -86,20 +83,9 @@ public partial struct TriggerSystem : ISystem
                         };
 
                         entityManager.SetComponentData(hit.Entity, gouseTouched);
-
-                        GoouseTouched componentAfterSet = entityManager.GetComponentData<GoouseTouched>(hit.Entity);
-
-                        if (!Equals(hit.Entity, entity))
-                        {
-                            //Debug.Log($"After setting: EndScale={componentAfterSet.endScale}, OriginalScale={componentAfterSet.originalScale}, Duration={componentAfterSet.duration}, Time={componentAfterSet.time}, ScalingUp={componentAfterSet.scalingUp}");
-                        }
-
-                        //Debug.Log(Equals(hit.Entity, entity) ? hit.Entity : "Trigger");
-
                         continue;
                     }
 
-                    //Debug.Log("Im not a goose!");
                 }
 
                 hits.Dispose();

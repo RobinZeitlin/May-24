@@ -12,6 +12,7 @@ public class DuckToFindHandler : MonoBehaviour
     public GameObject duckPrefab;
 
     public List<GameObject> specialDucks = new List<GameObject>();
+    public List<SteamAchievement> specialDuckACH = new List<SteamAchievement>();
     public List<GameObject> ducks;
 
     public DuckInfoSO duckInfo;
@@ -84,10 +85,11 @@ public class DuckToFindHandler : MonoBehaviour
             float randX = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
             float randY = Random.Range(-SpawnRange * (GameManager.instance.Level * 0.2f), SpawnRange * (GameManager.instance.Level * 0.2f));
 
-            GameObject thisDuck = Instantiate(specialDucks[Random.Range(0,specialDucks.Count)], new Vector3(0 + randX, 0, 0 + randY), Quaternion.identity);
+            int chosenDuck = Random.Range(0, specialDucks.Count);
+            GameObject thisDuck = Instantiate(specialDucks[chosenDuck], new Vector3(0 + randX, 0, 0 + randY), Quaternion.identity);
+            specialDuckACH[chosenDuck].UnlockAchievement();
 
             ducks.Add(thisDuck);
-
         }
     }
 
