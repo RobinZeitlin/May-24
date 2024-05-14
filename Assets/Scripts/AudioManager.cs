@@ -22,15 +22,18 @@ public class AudioManager : MonoBehaviour
 
     public int currentTrack = 0;
     public AudioClip[] clips;
+    private AudioSource audioSource;
+    private bool isMuted = false;
 
     private void Start()
     {
         clips = Resources.LoadAll<AudioClip>("Music/") as AudioClip[];
 
-        if(clips.Length > 0)
+        if (clips.Length > 0)
         {
-            PlaySound(clips[currentTrack]);
-            currentTrack++;
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.volume = isMuted ? 0f : 0.5f;
+            StartCoroutine(PlayMusic());
         }
         else
         {
@@ -38,12 +41,25 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayMusic()
+    {
+        while (true)
+        {
+            PlaySound(clips[currentTrack]);
+            yield return new WaitForSeconds(clips[currentTrack].length);
+            currentTrack = (currentTrack + 1) % clips.Length;
+        }
+    }
+
     public void PlaySound(AudioClip clip)
     {
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
         audioSource.Play();
-        audioSource.volume = 0.2f;
-        Destroy(audioSource, clip.length);
+    }
+
+    public void ToggleMute()
+    {
+        isMuted = !isMuted;
+        audioSource.volume = isMuted ? 0f : 0.5f;
     }
 }
