@@ -47,7 +47,7 @@ namespace ECS
 
         protected override void OnUpdate()
         {
-            Debug.Log("");
+            
         }
     }
 }

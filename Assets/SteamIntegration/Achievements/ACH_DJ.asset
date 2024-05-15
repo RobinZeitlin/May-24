@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e60f738bfbca438428f3148f7e8f1a0b, type: 3}
   m_Name: ACH_DJ
   m_EditorClassIdentifier: 
-  achievementName: ACH_Moped
+  achievementName: ACH_DJ

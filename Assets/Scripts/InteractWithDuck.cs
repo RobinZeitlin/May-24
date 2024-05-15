@@ -64,6 +64,6 @@ public class InteractWithDuck : MonoBehaviour
 
         audioSource.pitch = Random.Range(0.8f, 1.2f);
 
-        Destroy(audioSource, quackSound.length);
+        Destroy(audioSource, quackSound.length + 0.1f);
     }
 }
