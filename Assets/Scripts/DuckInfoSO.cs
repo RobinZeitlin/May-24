@@ -28,5 +28,6 @@ public enum DuckToFind
     CapBlue,
     CapRed,
     SunHat,
+    Racoon,
 }
 

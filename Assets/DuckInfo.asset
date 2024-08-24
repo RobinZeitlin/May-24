@@ -37,3 +37,7 @@ MonoBehaviour:
       type: 3}
     duckToFind: 9
     hatSprite: {fileID: 21300000, guid: 01c3ed15d951c3248b6ff8238b9866fe, type: 3}
+  - hatPrefab: {fileID: 7176293097452824170, guid: 7f4f596498bd50a43a9d2fd81609ea9d,
+      type: 3}
+    duckToFind: 10
+    hatSprite: {fileID: 21300000, guid: 2aff3eab96ac94641b326a939b1a9f62, type: 3}
